@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Available car</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .flight-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .flight {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 10px;
+        padding: 20px;
+        width: calc(50% - 40px);
+        box-shadow: 0 0 10px #ccc;
+      }
+
+      .flight h2 {
+        color: #0275d8;
+      }
+
+      .flight p {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      button {
+        background-color: #0275d8;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #0256b8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Available Cars for Booking</h1>
+      <div class="flight-list">
+        {% for ele in from_to_data %}
+        <div class="flight">
+          <h2>{{ele.car}}</h2>
+          <p>Date:{{ele.book_from}} </p>
+          <p>From {{ele.book_to}}</p>
+          <p>Distance {{ele.km}}</p>
+          <form action="{% url 'user:result2' %}" method="post">
+            {% csrf_token %}
+          <button type="submit" value="{{ele.car}}" name="car">Book now</button></form>
+        </div>
+        {% endfor %}
+      </div>
+      {% comment %} <form action="{% url 'user:result2' %}" method="post">
+        {% csrf_token %}
+        <select name="car">
+            {% for ele in from_to_data %}
+            <option value="{{ele.car}}">{{ele.car}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="submit">
+    </form> {% endcomment %}
+    </div>
+  </body>
+</html>
+    
